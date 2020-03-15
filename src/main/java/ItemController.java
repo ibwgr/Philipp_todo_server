@@ -30,8 +30,9 @@ public class ItemController {
         server.get("/items",(request, response) -> {
 
             response.status(406);
+            response.body("Not Accepteble");
 //           --> also possible:
-//          halt(406);
+//          halt(406,"Not Acceptable");
 
            return response;
         });
