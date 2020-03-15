@@ -24,7 +24,7 @@ public class FunctionalTest {
   @Rule
   public SparkServer<TodoApplication> httpClient = new SparkServer<>(TodoApplication.class);
 
-  public HttpResponse executeGet(String path, String acceptType){
+  public HttpResponse executeGet(String path, String acceptType) {
     GetMethod method = httpClient.get(path, false);
     method.addHeader("Accept", acceptType);
     try {
