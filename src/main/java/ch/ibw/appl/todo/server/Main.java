@@ -1,9 +1,6 @@
-import spark.ResponseTransformer;
+package ch.ibw.appl.todo.server;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static spark.Spark.*;
+import ch.ibw.appl.todo.server.shared.infra.HttpServer;
 
 public class Main {
     public static void main(String[] args) {

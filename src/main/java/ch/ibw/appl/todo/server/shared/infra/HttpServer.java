@@ -1,7 +1,7 @@
-import spark.Service;
+package ch.ibw.appl.todo.server.shared.infra;
 
-import java.util.ArrayList;
-import java.util.List;
+import ch.ibw.appl.todo.server.item.infra.ItemController;
+import spark.Service;
 
 import static spark.Spark.get;
 
@@ -22,6 +22,20 @@ public class HttpServer {
         new ItemController().createRoutes(server);
 
         server.awaitInitialization();
+
+
+        // before filter
+        server.before(((request, response) -> {
+            if (!request.headers("accept").contains("application/json") ){
+                response.status(406);
+                response.body("Not Accepteble");
+            }
+        }));
+
+        server.after(((request, response) ->{
+            response.type("application/json");
+        }));
+
     }
 
     public void stop() {
