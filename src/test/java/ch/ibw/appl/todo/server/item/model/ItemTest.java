@@ -8,6 +8,7 @@ import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,16 +79,18 @@ public class ItemTest extends FunctionalTest {
         HttpResponse httpResponse = this.executePost("/items", new Item("another item"));
         Assert.assertEquals(HttpStatus.CREATED_201, httpResponse.code());
 
-        httpResponse = this.executeGet("/items/3");
-        Assert.assertEquals(200, httpResponse.code());
+        String body = new String(httpResponse.body());
+        Item item = new JSONSerializer().deserialize(body, new TypeReference<Item>() {});
+        Assert.assertEquals("another item", item.description);
 
+        httpResponse = this.executeGet("/items/" + item.id);
+        Assert.assertEquals(200, httpResponse.code());
     }
 
     @Test
     public void deleteExistingItem_ItemDoesExist_ItemDeleted_OK(){
         // create
-        HttpResponse httpResponse = this.executePost("/items", new Item("new item"));
-        httpResponse = this.executeGet("/items/3");
+        HttpResponse httpResponse = this.executeGet("/items/3");
         int code = httpResponse.code();
 
         Assert.assertEquals(200, code);
@@ -98,7 +101,7 @@ public class ItemTest extends FunctionalTest {
 
         Assert.assertEquals(200, code);
 
-        // delete again
+        // delete again - item deleted
         httpResponse = this.executeGet("/items/3");
         code = httpResponse.code();
 
@@ -128,7 +131,7 @@ public class ItemTest extends FunctionalTest {
 
         String description = deserializedItemList.get(0).description;
 
-        Assert.assertEquals("Einkaufen für Geburtstag", description);
+        Assert.assertEquals("Einkaufen fuer Geburtstag", description);
     }
 
     @Test

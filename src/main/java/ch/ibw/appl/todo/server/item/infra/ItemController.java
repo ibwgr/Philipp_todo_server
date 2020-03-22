@@ -49,7 +49,7 @@ public class ItemController {
             Item item = new JSONSerializer().deserialize(request.body(), new TypeReference<Item>() {} );
             service.create(item);
             response.status(HttpStatus.CREATED_201);
-            return "";
+            return service.create(item);
 
         }, items -> new JSONSerializer().serialize(items));
 

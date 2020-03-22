@@ -13,13 +13,16 @@ public class ItemService {
         items = new ArrayList<>();
         Item item1 = new Item("Hallo World ch.ibw.appl.todo.server.item.model.Item");
         this.create(item1);
-        Item item2 = new Item("Einkaufen für Geburtstag");
+        Item item2 = new Item("Einkaufen fuer Geburtstag");
         this.create(item2);
+        Item item3 = new Item("Ich bin Nr. 3");
+        this.create(item3);
     }
 
-    public void create(Item item) {
+    public Item create(Item item) {
         item.id = ++nextId;
         items.add(item);
+        return item;
     }
 
     public Item getById(long requestedId) {
