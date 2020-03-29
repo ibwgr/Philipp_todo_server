@@ -13,13 +13,12 @@ import java.util.List;
 import static spark.Spark.halt;
 
 public class ItemController {
-    ItemService service = new ItemService();
+    ItemService service;
 
     List<Item> items;
     // constructors
-    public ItemController() {
-
-
+    public ItemController(Boolean isTest) {
+        service = new ItemService(isTest);
     }
 
     public void createRoutes(Service server) {
@@ -47,7 +46,6 @@ public class ItemController {
         server.post("/items", (request, response) -> {
 
             Item item = new JSONSerializer().deserialize(request.body(), new TypeReference<Item>() {} );
-            service.create(item);
             response.status(HttpStatus.CREATED_201);
             return service.create(item);
 

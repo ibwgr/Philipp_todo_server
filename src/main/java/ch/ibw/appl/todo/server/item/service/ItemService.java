@@ -9,14 +9,17 @@ public class ItemService {
     private final List<Item> items;
     private long nextId = 0;
 
-    public ItemService() {
+    public ItemService(Boolean isTest) {
         items = new ArrayList<>();
-        Item item1 = new Item("Hallo World ch.ibw.appl.todo.server.item.model.Item");
-        this.create(item1);
-        Item item2 = new Item("Einkaufen fuer Geburtstag");
-        this.create(item2);
-        Item item3 = new Item("Ich bin Nr. 3");
-        this.create(item3);
+        if (isTest){
+            Item item1 = new Item("Hallo World ch.ibw.appl.todo.server.item.model.Item");
+            this.create(item1);
+            Item item2 = new Item("Einkaufen fuer Geburtstag");
+            this.create(item2);
+            Item item3 = new Item("Ich bin Nr. 3");
+            this.create(item3);
+        }
+
     }
 
     public Item create(Item item) {

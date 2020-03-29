@@ -80,6 +80,7 @@ public class ItemTest extends FunctionalTest {
         Assert.assertEquals(HttpStatus.CREATED_201, httpResponse.code());
 
         String body = new String(httpResponse.body());
+        System.out.println(body);
         Item item = new JSONSerializer().deserialize(body, new TypeReference<Item>() {});
         Assert.assertEquals("another item", item.description);
 

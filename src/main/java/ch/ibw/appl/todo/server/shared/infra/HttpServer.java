@@ -8,10 +8,12 @@ import static spark.Spark.get;
 public class HttpServer {
 
     private final String httpPort;
+    private final Boolean isTest;
     private Service server;
 
-    public HttpServer(String httpPort) {
+    public HttpServer(String httpPort, boolean isTest) {
         this.httpPort = httpPort;
+        this.isTest = isTest;
     }
 
     public void start() {
@@ -19,7 +21,7 @@ public class HttpServer {
         server.port(Integer.parseInt(httpPort));
 
         // create controller for resource --> /item
-        new ItemController().createRoutes(server);
+        new ItemController(isTest).createRoutes(server);
 
         server.awaitInitialization();
 
